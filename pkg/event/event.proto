@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package event;
+
+option go_package = "github.com/shankalpaLamichhane/corvus/pkg/event";
+
+import "google/protobuf/timestamp.proto";
+
+message Event{
+  int64 offset = 1;
+  string topic = 2;
+  bytes key = 3;
+  bytes value = 4;
+  google.protobuf.Timestamp timestamp = 5;
+  map<string,string> headers = 6;
+}
