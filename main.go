@@ -10,7 +10,6 @@ import (
 
 func main() {
 	log, _ := storage.NewLog("./testlog", 1024*1024)
-
 	e := &event.Event{
 		Topic: "test-topic",
 		Value: []byte("Hello, Corvus!"),
@@ -23,6 +22,11 @@ func main() {
 	offset, err := log.Append(e)
 	fmt.Println("Appended event at offset:", offset, "Error:", err)
 
-	read, _ := log.Read(offset)
-	fmt.Printf("Read: topic = %s value = %s\n", read.Topic, string(read.Value))
+	read, err := log.Read(offset)
+	if err != nil {
+		fmt.Println("Read failed:", err)
+		return
+	}
+	fmt.Printf("Read: topic=%s value=%s\n", read.Topic, string(read.Value))
 }
+ 
